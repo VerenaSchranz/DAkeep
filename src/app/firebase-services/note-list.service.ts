@@ -6,7 +6,8 @@ import {
   doc,
   collectionData,
   onSnapshot,
-  addDoc
+  addDoc,
+  updateDoc
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 
@@ -29,6 +30,12 @@ export class NoteListService {
 
  
 
+  }
+
+  async updateNote(colId: string, docId: string, item: {}) {
+    await updateDoc( this.getSingleDocRef(colId, docId), item).catch(
+      (err) =>{ console.log(err); }
+    ).then();
   }
 
   async addNote(item: Note) {
