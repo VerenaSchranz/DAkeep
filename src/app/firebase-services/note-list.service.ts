@@ -1,6 +1,10 @@
 import { Injectable, inject } from "@angular/core";
 import { Note } from "../interfaces/note.interface";
 import {
+  query,
+  orderBy,
+  limit,
+  where,
   Firestore,
   collection,
   doc,
@@ -30,7 +34,7 @@ export class NoteListService {
     this.unsubNotes = this.subNoteList();
   }
 
-  async deleteNote(colId: string, docId: string) {
+  async deleteNote(colId: "notes" | "trash", docId: string) {
     try {
       await deleteDoc(this.getSingleDocRef(colId, docId));
       console.log("Document deleted successfully");
@@ -98,7 +102,8 @@ export class NoteListService {
   }
 
   subNoteList() {
-    return onSnapshot(this.getNotesRef(), (list) => {
+    const q = query(this.getNotesRef(), orderBy("state"), limit(100));
+    return onSnapshot(q, (list) => {
       this.normalNotes = [];
       list.forEach((element) => {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
