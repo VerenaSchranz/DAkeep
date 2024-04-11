@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/styles.scss"],
+  "sourcesContent": ["body{\n    margin: 0;\n    overflow: hidden;\n    background-color: #0f0f12;\n    color: whitesmoke;\n    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;\n}\n\n*{\n    box-sizing: border-box;\n}\n\n* {\n    scrollbar-width: auto;\n    scrollbar-color: #6BC1E1 #ffffff00;\n  }\n\n  /* Chrome, Edge, and Safari */\n  *::-webkit-scrollbar {\n    width: 4px;\n  }\n\n  *::-webkit-scrollbar-track {\n    background: #ffffff00;\n  }\n\n  *::-webkit-scrollbar-thumb {\n    background-color: #6BC1E1;\n    border-radius: 10px;\n    border: 3px solid #ffffff00;\n  }\n"],
+  "mappings": "AAAA,YACI,EACA,SAAA,OACA,iBAAA,QACA,MAAA,QACA,YAAA,SAAA,CAAA,YAAA,CAAA,OAAA,CAAA,YAAA,CAAA,WAGJ,EACI,WAAA,WAGJ,EACI,gBAAA,KACA,gBAAA,QAAA,KAAA,GAAA,CAAA,GAAA,CAAA,GAAA,CAAA,GAIF,CAAA,oBACE,MAAA,IAGF,CAAA,0BACE,WAAA,KAAA,GAAA,CAAA,GAAA,CAAA,GAAA,CAAA,GAGF,CAAA,0BACE,iBAAA,QA3BJ,cA4BI,KACA,OAAA,IAAA,MAAA,KAAA,GAAA,CAAA,GAAA,CAAA,GAAA,CAAA",
+  "names": []
+}
