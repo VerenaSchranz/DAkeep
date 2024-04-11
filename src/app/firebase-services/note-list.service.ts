@@ -70,7 +70,7 @@ export class NoteListService {
     }
   }
 
-/*   async addNote(item: Note, colId: 'notes' | 'trash') {
+   async addNote(item: Note, colId: 'notes' | 'trash') {
     if (colId == 'notes') {
       await addDoc(this.getNotesRef(), item)
         .catch((err) => {
@@ -80,17 +80,7 @@ export class NoteListService {
           console.log('Document written with ID: ', docRef);
         });
     }
-  } */
-  async addNote(item: Note, colId: 'notes' | 'trash') {
-    await addDoc(this.getNotesRef(), item)
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef);
-      });
-  }
-  
+  } 
 
 
   ngOnDestroy() {
