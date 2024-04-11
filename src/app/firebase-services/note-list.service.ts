@@ -70,15 +70,28 @@ export class NoteListService {
     }
   }
 
-  async addNote(item: Note) {
-    try {
-      const docRef = await addDoc(this.getNotesRef(), item);
-      console.log("Document written with ID", docRef.id);
-    } catch (err) {
-      console.error(err);
+/*   async addNote(item: Note, colId: 'notes' | 'trash') {
+    if (colId == 'notes') {
+      await addDoc(this.getNotesRef(), item)
+        .catch((err) => {
+          console.error(err);
+        })
+        .then((docRef) => {
+          console.log('Document written with ID: ', docRef);
+        });
     }
+  } */
+  async addNote(item: Note, colId: 'notes' | 'trash') {
+    await addDoc(this.getNotesRef(), item)
+      .catch((err) => {
+        console.error(err);
+      })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef);
+      });
   }
   
+
 
   ngOnDestroy() {
     this.unsubTrash();
