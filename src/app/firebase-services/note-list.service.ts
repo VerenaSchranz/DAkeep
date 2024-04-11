@@ -31,7 +31,7 @@ export class NoteListService {
 
   }
 
-  async addNote(item: {}) {
+  async addNote(item: Note) {
     try {
       const docRef = await addDoc(this.getNotesRef(), item);
       console.log("Document written with ID", docRef.id);

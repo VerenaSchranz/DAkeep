@@ -11,7 +11,7 @@ export class AddNoteDialogComponent {
   @Output() addDialogClosed: EventEmitter<boolean> = new EventEmitter();
   title = "";
   description = "";
-
+  
   constructor(private noteService: NoteListService){}
 
   closeDialog() {
@@ -21,7 +21,15 @@ export class AddNoteDialogComponent {
   }
 
   addNote(){
+    let note:Note = {
+      type: "note",
+      title: this.title,
+      content:this.description,
+      marked: false,
+    }
+    this.noteService.addNote(note)
     //beachte das closeDialog() zum Schluss kommt, denn es leert die Variablen
-    this.closeDialog();
+    this.addDialogClosed.emit(false);
+    // this.closeDialog();
   }
 }
