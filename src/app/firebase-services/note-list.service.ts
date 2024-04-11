@@ -7,7 +7,8 @@ import {
   collectionData,
   onSnapshot,
   addDoc,
-  updateDoc
+  updateDoc,
+  deleteDoc
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 
@@ -27,10 +28,17 @@ export class NoteListService {
 
     this.unsubTrash = this.subTrashList();
     this.unsubNotes = this.subNoteList();
-
- 
-
   }
+
+  async deleteNote(colId: string, docId: string) {
+    try {
+      await deleteDoc(this.getSingleDocRef(colId, docId));
+      console.log("Document deleted successfully");
+    } catch (err) {
+      console.error("Error deleting document:", err);
+    }
+  }
+  
 
   async updateNote(note: Note) {
     if (note.id) {
