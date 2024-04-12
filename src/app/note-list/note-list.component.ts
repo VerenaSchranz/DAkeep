@@ -14,9 +14,6 @@ export class NoteListComponent {
   status: "notes" | "trash" = "notes";
 
   constructor(private noteService: NoteListService) { 
-   /*  this.unsubList = onSnapshot(this.getNotesRef(), (list) => {
-      // Logic to update noteList based on Firestore snapshot
-    }); */
   }
 
   changeFavFilter(filter: "all" | "fav") {
@@ -32,7 +29,15 @@ export class NoteListComponent {
     }
   }
 
-  getList(): Note[] {
-    // return this.noteService.getNotesRef();
-    return this.noteService.normalNotes}
+   getList(): Note[] {
+      if(this.status == 'notes') {
+      if(this.favFilter == 'all') {
+        return this.noteService.normalNotes;
+      } else {
+        return this.noteService.normalMarkedNotes;
+      }
+    } else {
+      return this.noteService.trashNotes;
+    }  
+  } 
 }

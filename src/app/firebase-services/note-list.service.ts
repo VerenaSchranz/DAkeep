@@ -22,16 +22,18 @@ import { Observable } from "rxjs";
 export class NoteListService {
   trashNotes: Note[] = [];
   normalNotes: Note[] = [];
+  normalMarkedNotes: Note[] = [];
 
   unsubTrash;
   unsubNotes;
+  unsubMarkedNotes;
   firestore: Firestore = inject(Firestore);
 
 
   constructor() {
-
-    this.unsubTrash = this.subTrashList();
     this.unsubNotes = this.subNoteList();
+    this.unsubMarkedNotes = this.subMarkedNoteList();
+    this.unsubTrash = this.subTrashList();
   }
 
   async deleteNote(colId: "notes" | "trash", docId: string) {
@@ -90,6 +92,7 @@ export class NoteListService {
   ngOnDestroy() {
     this.unsubTrash();
     this.unsubNotes();
+    this.unsubMarkedNotes();
   }
 
   subTrashList() {
@@ -102,12 +105,22 @@ export class NoteListService {
   }
 
   subNoteList() {
-    const q = query(this.getNotesRef(), orderBy("state"), limit(100));
+    const q = query(this.getNotesRef(), limit(100));
     return onSnapshot(q, (list) => {
       this.normalNotes = [];
       list.forEach((element) => {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
         // console.log(this.setNoteObject(element.data(), element.id));
+      });
+    });
+  }
+
+  subMarkedNoteList() {
+    const q = query(this.getNotesRef(), where("marked", "==", true), limit(100));
+    return onSnapshot(q, (list) => {
+      this.normalMarkedNotes = [];
+      list.forEach((element) => {
+        this.normalMarkedNotes.push(this.setNoteObject(element.data(), element.id));
       });
     });
   }
