@@ -102,7 +102,7 @@ export class NoteListService {
   }
   
    subNotesList() {
-    let ref = collection(this.firestore, "notes/notesExtra/ag3PcMg1fPfPJBXcs71Y");
+    let ref = collection(this.firestore, "notes/wW7jX4IVHu8zrSdo6D3p/notesExtra");
     const q = query(ref, limit(100));
     return onSnapshot(q, (list) => {
         this.normalNotes = [];
