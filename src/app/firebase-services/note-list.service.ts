@@ -45,19 +45,16 @@ export class NoteListService {
     }
   }
   
-
   async updateNote(note: Note) {
     if (note.id) {
-      const docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
-      try {
-        await updateDoc(docRef, this.getCleanJson(note));
-        console.log("Document updated successfully");
-      } catch (err) {
-        console.error("Error updating document:", err);
-      }
+      let docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
+      await updateDoc(docRef, this.getCleanJson(note))
+        .catch((err) => {
+          console.log(err);
+        })
+        .then(() => {});
     }
   }
-  
 
   getCleanJson(note:Note):{} {
     return {
@@ -104,8 +101,8 @@ export class NoteListService {
     });
   }
   
-  subNotesList() {
-    let ref = collection(this.firestore, "notes/ag3PcMg1fPfPJBXcs71Y");
+   subNotesList() {
+    let ref = collection(this.firestore, "notes/notesExtra/ag3PcMg1fPfPJBXcs71Y");
     const q = query(ref, limit(100));
     return onSnapshot(q, (list) => {
         this.normalNotes = [];
@@ -114,8 +111,16 @@ export class NoteListService {
             // console.log(this.setNoteObject(doc.data(), doc.id));
         });
     });
-  } 
-
+  }  
+/*   subNotesList() {
+    const q = query(this.getNotesRef(), limit(100));
+    return onSnapshot(q, (list) => {
+      this.normalNotes = [];
+      list.forEach((element) => {
+        this.normalNotes.push(this.setNoteObject(element.data(), element.id));
+      });
+    });
+  } */
 
   subMarkedNoteList() {
     const q = query(this.getNotesRef(), where("marked", "==", true), limit(100));
