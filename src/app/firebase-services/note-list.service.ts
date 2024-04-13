@@ -31,7 +31,7 @@ export class NoteListService {
 
 
   constructor() {
-    this.unsubNotes = this.subNoteList();
+    this.unsubNotes = this.subNotesList();
     this.unsubMarkedNotes = this.subMarkedNoteList();
     this.unsubTrash = this.subTrashList();
   }
@@ -103,17 +103,19 @@ export class NoteListService {
       });
     });
   }
-
-  subNoteList() {
-    const q = query(this.getNotesRef(), limit(100));
+  
+  subNotesList() {
+    let ref = collection(this.firestore, "notes/ag3PcMg1fPfPJBXcs71Y");
+    const q = query(ref, limit(100));
     return onSnapshot(q, (list) => {
-      this.normalNotes = [];
-      list.forEach((element) => {
-        this.normalNotes.push(this.setNoteObject(element.data(), element.id));
-        // console.log(this.setNoteObject(element.data(), element.id));
-      });
+        this.normalNotes = [];
+        list.forEach((element) => {
+            this.normalNotes.push(this.setNoteObject(element.data(), element.id));
+            // console.log(this.setNoteObject(doc.data(), doc.id));
+        });
     });
-  }
+  } 
+
 
   subMarkedNoteList() {
     const q = query(this.getNotesRef(), where("marked", "==", true), limit(100));
