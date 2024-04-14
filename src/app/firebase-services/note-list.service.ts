@@ -101,7 +101,7 @@ export class NoteListService {
     });
   }
   
-   subNotesList() {
+/*   subNotesList() {
     let ref = collection(this.firestore, "notes/wW7jX4IVHu8zrSdo6D3p/notesExtra");
     const q = query(ref, limit(100));
     return onSnapshot(q, (list) => {
@@ -111,8 +111,8 @@ export class NoteListService {
             // console.log(this.setNoteObject(doc.data(), doc.id));
         });
     });
-  }  
-/*   subNotesList() {
+  }   */
+  subNotesList() {
     const q = query(this.getNotesRef(), limit(100));
     return onSnapshot(q, (list) => {
       this.normalNotes = [];
@@ -120,7 +120,7 @@ export class NoteListService {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
       });
     });
-  } */
+  } 
 
   subMarkedNoteList() {
     const q = query(this.getNotesRef(), where("marked", "==", true), limit(100));
