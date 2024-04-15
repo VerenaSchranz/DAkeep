@@ -36,13 +36,11 @@ export class NoteListService {
     this.unsubTrash = this.subTrashList();
   }
 
-  async deleteNote(colId: "notes" | "trash", docId: string) {
-    try {
-      await deleteDoc(this.getSingleDocRef(colId, docId));
-      console.log("Document deleted successfully");
-    } catch (err) {
-      console.error("Error deleting document:", err);
-    }
+  async deleteNote(colId: 'notes' | 'trash', docId: string) {
+    console.log('deleteNote');
+    await deleteDoc(this.getSingleDocRef(colId, docId)).catch((err) => {
+      console.error(err);
+    });
   }
   
   async updateNote(note: Note) {
@@ -73,8 +71,8 @@ export class NoteListService {
     }
   }
 
-   async addNote(item: Note, colId: 'note' | 'trash') {
-    if (colId == 'note') {
+  async addNote(item: Note, colId: 'notes' | 'trash') {
+    if (colId == 'notes') {
       await addDoc(this.getNotesRef(), item)
         .catch((err) => {
           console.error(err);
@@ -82,6 +80,8 @@ export class NoteListService {
         .then((docRef) => {
           console.log('Document written with ID: ', docRef);
         });
+    } else {
+      await addDoc(this.getTrashRef(), item);
     }
   } 
 
